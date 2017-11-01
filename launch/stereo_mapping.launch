@@ -24,10 +24,10 @@
   <arg name="approx_sync"             default="false"/>         <!-- if timestamps of the input topics are not synchronized -->
   
   <arg name="stereo_namespace"        default="/zed"/>
-  <arg name="left_image_topic"        default="$(arg stereo_namespace)/left/image_raw" />
-  <arg name="right_image_topic"       default="$(arg stereo_namespace)/right/image_raw" />      <!-- using grayscale image for efficiency -->
-  <arg name="left_camera_info_topic"  default="$(arg stereo_namespace)/left/camera_info" />
-  <arg name="right_camera_info_topic" default="$(arg stereo_namespace)/right/camera_info" />
+  <arg name="left_image_topic"        default="$(arg stereo_namespace)/left/image_raw_currentStamp" />
+  <arg name="right_image_topic"       default="$(arg stereo_namespace)/right/image_raw_currentStamp" />      <!-- using grayscale image for efficiency -->
+  <arg name="left_camera_info_topic"  default="$(arg stereo_namespace)/left/camera_info_currentStamp" />
+  <arg name="right_camera_info_topic" default="$(arg stereo_namespace)/right/camera_info_currentStamp" />
   <arg name="compressed"              default="false"/>
    
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
@@ -37,7 +37,7 @@
   <arg name="scan_cloud_topic"        default="/scan_cloud"/>
   
   <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
-  <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
+  <arg name="odom_topic"              default="/zed/odom_currentStamp"/>         <!-- Odometry topic used if visual_odometry is false -->
   <arg name="odom_frame_id"           default=""/>              <!-- If set, TF is used to get odometry instead of the topic -->
   
   <arg name="namespace"               default="rtabmap"/>
@@ -48,8 +48,8 @@
 
 <!-- <arg name="pi/2" value="1.5707963267948966" /> -->
 <!-- <arg name="use_static_transform" default="true" /> -->
-<!-- <node if="$(arg use_static_transform)" pkg="tf" type="static_transform_publisher" name="camera_optical" args="0 0 0 -$(arg pi/2) 0 -$(arg pi/2) base_link /zed_current_frame" /> -->
-<node pkg="tf2_ros" type="static_transform_publisher" name="cameratf" args=" 0 0 0 0 0 0 1 base_link /zed_current_frame" />
+<!-- <node if="$(arg use_static_transform)" pkg="tf2_ros" type="static_transform_publisher" name="camera_optical" args="0 0 0 -$(arg pi/2) 0 -$(arg pi/2) base_link zed_frame" /> -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="cameratf" args=" 0 0 0 0 0 0 1 base_link zed_frame" />
 <!-- <node if="$(arg use_static_transform)" pkg="tf" type="static_transform_publisher" name="camera_optical2" args="0 0 0 -$(arg pi/2) 0 -$(arg pi/2) /base_link /left 100" /> -->
   
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
